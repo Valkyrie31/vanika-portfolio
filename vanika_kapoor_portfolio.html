@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanika Kapoor | Data Analyst Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --neon: #00ffe1;
+    --neon2: #ff2d78;
+    --neon3: #ffe600;
+    --bg: #050a0e;
+    --bg2: #0a1118;
+    --panel: rgba(0,255,225,0.04);
+    --panel-border: rgba(0,255,225,0.15);
+    --text: #c8e6e0;
+    --muted: #4a7a72;
+    --font-mono: 'Space Mono', monospace;
+    --font-ui: 'Rajdhani', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,225,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,225,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,225,0.15), transparent);
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  @keyframes scan { 0%{top:-2px} 100%{top:100vh} }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; position: relative; z-index: 1; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5,10,14,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex; padding: 0 20px;
+    overflow-x: auto;
+  }
+  .nav a {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    padding: 13px 16px; border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s; white-space: nowrap;
+  }
+  .nav a:hover, .nav a.active { color: var(--neon); border-bottom-color: var(--neon); }
+
+  /* HEADER */
+  .hdr { padding: 48px 0 32px; border-bottom: 1px solid var(--panel-border); margin-bottom: 32px; }
+  .hdr-tag { font-family: var(--font-mono); font-size: 11px; color: var(--neon); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; opacity: 0.7; }
+  .hdr-name { font-family: var(--font-ui); font-size: clamp(36px,6vw,64px); font-weight: 700; letter-spacing: -1px; color: #fff; line-height: 1; }
+  .hdr-name span { color: var(--neon); }
+  .hdr-role { font-family: var(--font-mono); font-size: 13px; color: var(--neon2); margin-top: 10px; letter-spacing: 2px; }
+  .hdr-role::before { content: '> '; opacity: 0.5; }
+
+  .status-row { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+  .status-pill { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot.green { background: #00ff88; box-shadow: 0 0 6px #00ff88; animation: pulse 2s infinite; }
+  .dot.amber { background: var(--neon3); }
+  .dot.pink  { background: var(--neon2); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* KPIs */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-bottom: 28px; }
+  .kpi {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-top: 2px solid var(--neon); padding: 16px 18px; position: relative; overflow: hidden;
+  }
+  .kpi::after { content:''; position:absolute; top:0; right:0; width:40px; height:40px; background:radial-gradient(circle at top right,rgba(0,255,225,0.08),transparent 70%); }
+  .kpi-val { font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--neon); line-height: 1; }
+  .kpi-label { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+  /* SECTION */
+  .section { margin-bottom: 28px; }
+  .section-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .section-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--neon); }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg,var(--neon) 0%,transparent 100%); opacity: 0.2; }
+
+  /* ABOUT */
+  .about-panel {
+    background: var(--panel); border: 1px solid var(--panel-border); padding: 22px 24px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  @media(max-width:560px){ .about-panel { grid-template-columns: 1fr; } }
+  .about-text { color: var(--text); font-size: 15px; line-height: 1.7; }
+  .about-details { display: flex; flex-direction: column; gap: 10px; }
+  .detail-row { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-mono); font-size: 12px; }
+  .detail-label { color: var(--muted); min-width: 90px; padding-top: 1px; }
+  .detail-val { color: var(--text); word-break: break-all; }
+  .detail-val a { color: var(--neon); text-decoration: none; }
+  .detail-val a:hover { text-decoration: underline; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
+  .skill-group { background: var(--panel); border: 1px solid var(--panel-border); padding: 16px 18px; }
+  .skill-group-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--neon2); text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,45,120,0.2); }
+  .skill-bar { margin-bottom: 10px; }
+  .skill-name { display: flex; justify-content: space-between; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+  .skill-pct { color: var(--neon); font-family: var(--font-mono); font-size: 11px; }
+  .bar-track { height: 4px; background: rgba(255,255,255,0.06); }
+  .bar-fill { height: 100%; background: linear-gradient(90deg,var(--neon) 0%,rgba(0,255,225,0.4) 100%); transition: width 1.2s cubic-bezier(.4,0,.2,1); width: 0; }
+
+  /* CERTS */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 12px; }
+  .cert-card {
+    background: var(--panel); border: 1px solid var(--panel-border); border-left: 3px solid var(--neon3);
+    padding: 16px 18px; position: relative; overflow: hidden;
+  }
+  .cert-card::before { content:''; position:absolute; top:0; right:0; bottom:0; width:60px; background:linear-gradient(90deg,transparent,rgba(255,230,0,0.03)); }
+  .cert-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .cert-issuer { font-family: var(--font-mono); font-size: 11px; color: var(--neon3); }
+  .cert-year { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 8px; }
+  .cert-badge { position:absolute; top:12px; right:14px; font-family:var(--font-mono); font-size:9px; color:var(--neon3); border:1px solid rgba(255,230,0,0.3); padding:2px 6px; letter-spacing:1px; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 12px; }
+  .proj-card { background: var(--panel); border: 1px solid var(--panel-border); padding: 20px 20px 16px; transition: border-color .2s; }
+  .proj-card:hover { border-color: rgba(0,255,225,0.4); }
+  .proj-num { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 8px; }
+  .proj-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .proj-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border: 1px solid rgba(0,255,225,0.2); color: var(--neon); letter-spacing: 1px; }
+  .tag.pink { border-color: rgba(255,45,120,0.3); color: var(--neon2); }
+  .proj-link { display: inline-block; margin-top: 10px; font-family: var(--font-mono); font-size: 10px; color: var(--neon); text-decoration: none; border-bottom: 1px solid rgba(0,255,225,0.3); padding-bottom: 1px; }
+  .proj-link:hover { border-bottom-color: var(--neon); }
+
+  /* CONTACT */
+  .contact-panel {
+    background: var(--panel); border: 1px solid var(--panel-border); border-bottom: 2px solid var(--neon);
+    padding: 24px; display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 16px;
+  }
+  .contact-item { display: flex; flex-direction: column; gap: 4px; }
+  .contact-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .contact-val { font-size: 13px; color: var(--neon); font-family: var(--font-mono); word-break: break-all; }
+  .contact-val a { color: var(--neon); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--neon); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#about" class="active">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#certs">Certifications</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="hdr" id="about">
+    <div class="hdr-tag">Portfolio · Data Analytics · 2025</div>
+    <div class="hdr-name">Vanika <span>Kapoor</span></div>
+    <div class="hdr-role">Aspiring Data Analyst · Python · SQL · Power BI</div>
+    <div class="status-row">
+      <span class="status-pill"><span class="dot green"></span>Open to opportunities</span>
+      <span class="status-pill"><span class="dot amber"></span>Lucknow, India (UTC +05:30)</span>
+      <span class="status-pill"><span class="dot pink"></span>Data · Visualization · CV</span>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-label">GitHub Projects</div></div>
+    <div class="kpi"><div class="kpi-val">38</div><div class="kpi-label">Asia Cup Years Analyzed</div></div>
+    <div class="kpi"><div class="kpi-val">4</div><div class="kpi-label">Core Tools</div></div>
+    <div class="kpi"><div class="kpi-val">∞</div><div class="kpi-label">Curiosity Index</div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="section-hdr"><span class="section-title">// About</span><div class="section-line"></div></div>
+    <div class="about-panel">
+      <div class="about-text">
+        Aspiring Data Analyst passionate about turning raw, messy datasets into clear, actionable insights. I specialize in data cleaning, visualization, and storytelling — whether it's uncovering 38 years of cricket trends in Power BI or detecting faces with computer vision. I believe <strong style="color:#fff">data, told well, changes decisions.</strong>
+      </div>
+      <div class="about-details">
+        <div class="detail-row"><span class="detail-label">Name</span><span class="detail-val">Vanika Kapoor</span></div>
+        <div class="detail-row"><span class="detail-label">Email</span><span class="detail-val"><a href="mailto:vanikakapoor31@gmail.com">vanikakapoor31@gmail.com</a></span></div>
+        <div class="detail-row"><span class="detail-label">Location</span><span class="detail-val">Lucknow, India</span></div>
+        <div class="detail-row"><span class="detail-label">Focus</span><span class="detail-val">Analytics · BI · CV</span></div>
+        <div class="detail-row"><span class="detail-label">GitHub</span><span class="detail-val"><a href="https://github.com/Valkyrie31" target="_blank">github.com/Valkyrie31</a></span></div>
+        <div class="detail-row"><span class="detail-label">LinkedIn</span><span class="detail-val"><a href="https://www.linkedin.com/in/vanika-kapoor-23915828a/" target="_blank">in/vanika-kapoor</a></span></div>
+        <div class="detail-row"><span class="detail-label">Status</span><span class="detail-val" style="color:var(--neon)">Open to Work ✦</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-hdr"><span class="section-title">// Skills</span><div class="section-line"></div></div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Languages & Query</div>
+        <div class="skill-bar"><div class="skill-name"><span>Python</span><span class="skill-pct">82%</span></div><div class="bar-track"><div class="bar-fill" data-width="82%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>SQL</span><span class="skill-pct">85%</span></div><div class="bar-track"><div class="bar-fill" data-width="85%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>DAX / Power Query</span><span class="skill-pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-width="80%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">BI & Visualization</div>
+        <div class="skill-bar"><div class="skill-name"><span>Power BI</span><span class="skill-pct">88%</span></div><div class="bar-track"><div class="bar-fill" data-width="88%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>Excel</span><span class="skill-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-width="90%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>Matplotlib / Seaborn</span><span class="skill-pct">75%</span></div><div class="bar-track"><div class="bar-fill" data-width="75%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Data & Analysis</div>
+        <div class="skill-bar"><div class="skill-name"><span>Data Cleaning</span><span class="skill-pct">88%</span></div><div class="bar-track"><div class="bar-fill" data-width="88%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>Pandas / NumPy</span><span class="skill-pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-width="80%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>Statistical Analysis</span><span class="skill-pct">75%</span></div><div class="bar-track"><div class="bar-fill" data-width="75%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Computer Vision & ML</div>
+        <div class="skill-bar"><div class="skill-name"><span>OpenCV</span><span class="skill-pct">72%</span></div><div class="bar-track"><div class="bar-fill" data-width="72%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>TensorFlow / Keras</span><span class="skill-pct">68%</span></div><div class="bar-track"><div class="bar-fill" data-width="68%"></div></div></div>
+        <div class="skill-bar"><div class="skill-name"><span>Scikit-learn</span><span class="skill-pct">70%</span></div><div class="bar-track"><div class="bar-fill" data-width="70%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section" id="certs">
+    <div class="section-hdr"><span class="section-title">// Certifications</span><div class="section-line"></div></div>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-badge">VERIFIED</div>
+        <div class="cert-name">Google Data Analytics</div>
+        <div class="cert-issuer">Google / Coursera</div>
+        <div class="cert-year">Professional Certificate · 8 Courses</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">VERIFIED</div>
+        <div class="cert-name">Microsoft Power BI Data Analyst</div>
+        <div class="cert-issuer">Microsoft / Coursera</div>
+        <div class="cert-year">Professional Certificate · PL-300 Prep</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">VERIFIED</div>
+        <div class="cert-name">Python for Data Science & AI</div>
+        <div class="cert-issuer">IBM / Coursera</div>
+        <div class="cert-year">Core Python & Pandas skills</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">VERIFIED</div>
+        <div class="cert-name">SQL for Data Science</div>
+        <div class="cert-issuer">UC Davis / Coursera</div>
+        <div class="cert-year">Queries, joins, aggregations</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-hdr"><span class="section-title">// Projects</span><div class="section-line"></div></div>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div class="proj-num">PROJECT_01 · Power BI</div>
+        <div class="proj-title">Asia Cup Cricket Analytics Dashboard</div>
+        <div class="proj-desc">Interactive Power BI dashboard analyzing Asia Cup trends from 1984 to 2022. Covers win percentages over time, teams with the most titles, toss decision outcomes, and Player of the Match award leaders across 38 years of tournament history.</div>
+        <div class="proj-tags">
+          <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag pink">Sports Analytics</span>
+        </div>
+        <a class="proj-link" href="https://github.com/Valkyrie31/Asia-Cup-Cricket-Analytics-Dashboard" target="_blank">View on GitHub ↗</a>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">PROJECT_02 · Computer Vision</div>
+        <div class="proj-title">Face Mask Detection</div>
+        <div class="proj-desc">Computer vision project that detects whether a person is wearing a face mask in real-time using deep learning. Trained a CNN model on labeled image data with OpenCV for live video stream inference.</div>
+        <div class="proj-tags">
+          <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Deep Learning</span><span class="tag pink">CV</span>
+        </div>
+        <a class="proj-link" href="https://github.com/Valkyrie31/Face-Mask-Detection-using-Computer-Vision" target="_blank">View on GitHub ↗</a>
+      </div>
+
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:11px;color:#4a7a72;margin-top:12px;">※ More projects coming soon — actively building.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-hdr"><span class="section-title">// Contact</span><div class="section-line"></div></div>
+    <div class="contact-panel">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <span class="contact-val"><a href="mailto:vanikakapoor31@gmail.com">vanikakapoor31@gmail.com</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-val"><a href="https://www.linkedin.com/in/vanika-kapoor-23915828a/" target="_blank">in/vanika-kapoor</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-val"><a href="https://github.com/Valkyrie31" target="_blank">github.com/Valkyrie31</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Location</span>
+        <span class="contact-val">Lucknow, UP, India</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.nav a[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => obs.observe(s));
+
+  // Animate skill bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width');
+      });
+    }, 300);
+  });
+</script>
+</body>
+</html>
